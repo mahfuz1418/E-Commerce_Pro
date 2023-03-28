@@ -85,8 +85,10 @@
                             </table>
                             <div class="d-flex justify-content-end">
                                 <div>
+                                    @if ($total!=0)    
                                     <a href="{{ route('cash.order') }}" class="btn btn-success">Cash On Delivery</a>
                                     <a href="{{ route('stripe', $total) }}" class="btn btn-info">Pay Using Card</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

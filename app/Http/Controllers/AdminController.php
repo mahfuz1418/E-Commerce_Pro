@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use PDF;
+use Notification;
+use App\Notifications\EmailNotification;
+
 
 class AdminController extends Controller
 {
@@ -146,6 +149,38 @@ class AdminController extends Controller
     
         return $pdf->download('invoice.pdf');
         
+    }
+
+    // SEND EMAIL VIEW FUNCTION 
+    public function send_email($id)
+    {
+        $order = Order::find($id);
+        return view('admin.send_email', compact('order'));
+    }
+
+    public function send_user_mail(Request $request, $id)
+    {
+        $order = Order::find($id);
+  
+        $details = [
+            'greeting' => $request->gretting,
+            'firstline' => $request->firstline,
+            'body' => $request->body,
+            'button' => $request->button,
+            'url' => $request->url,
+            'lastline' => $request->lastline,
+        ];
+  
+        Notification::send($order, new EmailNotification($details));
+   
+        return back()->with('message', 'Mail Send to Customer');
+    }
+
+    public function search(Request $request)
+    {
+        $serch_txt = $request->search;
+        $orders = Order::where('name', 'LIKE', "%$serch_txt%")->orWhere('email', 'LIKE', "%$serch_txt%")->orWhere('phone', 'LIKE', "%$serch_txt%")->orWhere('address', 'LIKE', "%$serch_txt%")->orWhere('product_title', 'LIKE', "%$serch_txt%")->orWhere('payment_status', 'LIKE', "%$serch_txt%")->orWhere('delevery_status', 'LIKE', "%$serch_txt%")->orWhere('email', 'LIKE', "%$serch_txt%")->get();
+        return view('admin.order', compact('orders' ));
     }
 
 }

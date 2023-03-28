@@ -19,7 +19,7 @@ a {
 body {
   position: relative;
   width: 18cm;  
-  height: 32cm; 
+  height: 28cm; 
   margin: 0 auto; 
   color: #001028;
   background: #FFFFFF; 
@@ -131,16 +131,6 @@ table td.grand {
   font-size: 1.2em;
 }
 
-footer {
-  color: #5D6975;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #C1CED9;
-  padding: 8px 0;
-  text-align: center;
-}
     </style>
   </head>
   <body>

@@ -28,7 +28,20 @@ class HomeController extends Controller
         $role = Auth::user()->role;
 
         if ($role === 'admin') {
-            return view('admin.home');
+            $total_product = Product::all()->count();
+            $total_order = Order::all()->count();
+            $total_customer = User::all()->count();
+
+            $orders = Order::all();
+            $total_revenue = 0;
+            foreach ($orders as $order) {
+                $total_revenue = $total_revenue + $order->price;
+            }
+
+            $total_delivered = Order::where('delevery_status', 'Delivered')->get()->count();
+            $total_processing = Order::where('delevery_status', 'Processing')->get()->count();
+
+            return view('admin.home', compact('total_product', 'total_order', 'total_customer','total_revenue', 'total_delivered', 'total_processing'));
         } else {
             $products = Product::paginate(6)->withQueryString();
             return view('home.userpage',  compact('products'));
