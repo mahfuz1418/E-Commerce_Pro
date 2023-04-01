@@ -50,7 +50,7 @@
                                                     <td>{{ $product->title }}</td>
                                                     <td>{{ $product->price }}</td>
                                                     <td> {{ $product->discount_price }} </td>
-                                                    <td> {{ $product->categoryRelation->category_name }} </td>
+                                                    <td> {{ $product->category}} </td>
                                                     <td> {{ $product->quantity }} </td>
                                                     <td>
                                                         <img style="height: 80px; width: auto; border-radius:0%"

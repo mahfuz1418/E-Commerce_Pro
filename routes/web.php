@@ -40,10 +40,20 @@ Route::middleware('auth', 'verified')->group(function(){
     Route::get('/show_cart', [HomeController::class, 'show_cart'])->name('show.cart');
     Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove.cart');
     Route::get('/cash_order', [HomeController::class, 'cash_order'])->name('cash.order');
+    Route::get('/show_home_order', [HomeController::class, 'show_home_order'])->name('show.homeorder');
+    Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order'])->name('cancel.order');
     
     // STRIPE PAYMENT METHOD 
     Route::get('stripe/{total}', [HomeController::class, 'stripe'])->name('stripe');
     Route::post('stripe/{total}', [HomeController::class, 'stripePost'])->name('stripe.post');
+
+    // COMMENT AND REPLY 
+    Route::post('/add_comment', [HomeController::class, 'add_comment'])->name('add.comment');
+    Route::post('/add_reply', [HomeController::class, 'add_reply'])->name('add.reply');
+
+    // SEARCH PRODUCT
+    Route::get('/search_product', [HomeController::class, 'search_product'])->name('search.product');
+    
 });
 
 

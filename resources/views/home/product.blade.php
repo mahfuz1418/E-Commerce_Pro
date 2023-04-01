@@ -1,9 +1,21 @@
-<section class="product_section layout_padding">
+<section class="product_section layout_padding" id="product">
     <div class="container">
         <div class="heading_container heading_center">
             <h2>
                 Our <span>products</span>
             </h2>
+            <form action="{{ route('search.product') }}" method="get">
+                <div class="form-group d-inline-block">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" name="search" id="" class="form-control" placeholder="Search product Here!" style="height: 50px; ">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" value="search">
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="row">
             @foreach ($products as $product)
@@ -33,7 +45,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                {{ $product->categoryRelation->category_name }}
+                                {{ $product->category }}
                             </h5>
                             @if ($product->discount_price != null)
                                 <h6 style="color: red">

@@ -31,66 +31,55 @@
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 @if (session()->has('message'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{{ session()->get('message') }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session()->get('message') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title text-center bg-dark text-light p-3 h4">All Youre Carts Here!</h4>
+                        <h4 class="card-title text-center bg-dark text-light p-3 h4">All Youre Order History Here!</h4>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th> SL No. </th>
-                                        <th> Product Title </th>
-                                        <th> Product Quantity </th>
+                                        <th> Title </th>
+                                        <th> Quantity </th>
                                         <th> Price </th>
+                                        <th> Payment Status </th>
+                                        <th> Delivery Status </th>
                                         <th> Image </th>
                                         <th> Action </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                        $total = 0;
-                                    ?>
-                                    @foreach ($carts as $cart)
+
+                                    @foreach ($orders as $order)
                                         <tr>
                                             <td> {{ $loop->iteration }} </td>
-                                            <td> {{ $cart->product_title }} </td>
-                                            <td> {{ $cart->quantity }} </td>
-                                            <td> $ {{ $cart->price }} </td>
-                                            <td> <img style="height: 100px; width: auto;" src="{{ asset('product') }}/{{ $cart->image }}" alt=""> </td>
+                                            <td> {{ $order->product_title }} </td>
+                                            <td> {{ $order->quantity }} </td>
+                                            <td> $ {{ $order->price }} </td>
+                                            <td> {{ $order->payment_status }} </td>
+                                            <td> {{ $order->delevery_status }} </td>
+                                            <td> <img style="height: 100px; width: auto;"
+                                                    src="{{ asset('product') }}/{{ $order->image }}" alt="">
+                                            </td>
                                             <td>
-                                                <a href="{{ route('remove.cart', $cart->id) }}" class="btn btn-danger">Remove Product</a>
+                                                @if ($order->delevery_status === 'Processing')
+                                                    <a href="{{ route('cancel.order', $order->id) }}" class="btn btn-danger">Cancel Order</a>
+                                                @else
+                                                    <p class="text-danger">Not Allowed</p>
+                                                @endif
                                             </td>
                                         </tr>
-                                        <?php
-                                            $total = $total + $cart->price;
-                                        ?>
                                     @endforeach
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Total</td>
-                                        <td>$ {{ $total }}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                 </tbody>
-                                
+
                             </table>
-                            <div class="d-flex justify-content-end">
-                                <div>
-                                    @if ($total!=0)    
-                                    <a href="{{ route('cash.order') }}" class="btn btn-success">Cash On Delivery</a>
-                                    <a href="{{ route('stripe', $total) }}" class="btn btn-info">Pay Using Card</a>
-                                    @endif
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

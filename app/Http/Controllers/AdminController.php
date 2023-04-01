@@ -144,24 +144,18 @@ class AdminController extends Controller
         
         $date = date('m/d/Y');
         $order = Order::find($id);
-          
         $pdf = PDF::loadView('admin.getpdf', compact('date', 'order'));
-    
         return $pdf->download('invoice.pdf');
-        
     }
-
     // SEND EMAIL VIEW FUNCTION 
     public function send_email($id)
     {
         $order = Order::find($id);
         return view('admin.send_email', compact('order'));
     }
-
     public function send_user_mail(Request $request, $id)
     {
         $order = Order::find($id);
-  
         $details = [
             'greeting' => $request->gretting,
             'firstline' => $request->firstline,
@@ -170,9 +164,7 @@ class AdminController extends Controller
             'url' => $request->url,
             'lastline' => $request->lastline,
         ];
-  
         Notification::send($order, new EmailNotification($details));
-   
         return back()->with('message', 'Mail Send to Customer');
     }
 
