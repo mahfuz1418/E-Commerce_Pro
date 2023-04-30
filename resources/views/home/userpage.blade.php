@@ -50,8 +50,8 @@
     @include('home.product')
     <!-- end product section -->
     <!-- Start Comment section -->
-    <div class=" bg-white py-5 ">
-        <h1 class="text-center pb-5" style="font-size: 40px; font-weight:bold;">Comment</h1>
+    <div class="py-5 bg-white ">
+        <h1 class="pb-5 text-center" style="font-size: 40px; font-weight:bold;">Comment</h1>
         <div class="row d-flex justify-content-center">
             <div class="col-md-6 ">
                 <form action="{{ route('add.comment') }}" method="POST">
@@ -61,9 +61,9 @@
                 </form>
             </div>
         </div>
-        <h2 class="text-center py-5" style="font-size: 20px; font-weight:bold;">All Comments here!</h2>
+        <h2 class="py-5 text-center" style="font-size: 20px; font-weight:bold;">All Comments here!</h2>
         @foreach ($comments as $comment)
-            <div class="row d-flex justify-content-center py-2">
+            <div class="py-2 row d-flex justify-content-center">
                 <div class="col-md-4 ">
                     <b>{{ $comment->name }}</b>
                     <p class="m-0">{{ $comment->comment }}</p>
@@ -71,7 +71,7 @@
                         data-CommentId="{{ $comment->id }}">Reply</a>
                     @foreach ($reply as $rep)
                         @if ($rep->comment_id == $comment->id)
-                            <div class="bg-light p-3 ml-3">
+                            <div class="p-3 ml-3 bg-light">
                                 <b>{{ $rep->name }}</b>
                                 <p>{{ $rep->reply }} </p>
                                 <a href="javascript::void(0)" class="text-primary" onclick="reply(this)"
@@ -86,7 +86,7 @@
 
         {{-- reply start --}}
         <div class="row d-flex justify-content-center">
-            <div class="col-md-6 p-0  ">
+            <div class="p-0 col-md-6 ">
                 <div class="replyDiv" style="display: none;">
                     <form action="{{ route('add.reply') }}" method="POST">
                         @csrf
@@ -149,6 +149,29 @@
     <script src="{{ asset('home/js/bootstrap.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('home/js/custom.js') }}"></script>
+
+    <!-- SSL COMMERZE SCRIPT -->
+    <script>
+        var obj = {};
+        obj.cus_name = $('#customer_name').val();
+        obj.cus_phone = $('#mobile').val();
+        obj.cus_email = $('#email').val();
+        obj.cus_addr1 = $('#address').val();
+        obj.amount = $('#total_amount').val();
+        
+        $('#sslczPayBtn').prop('postdata', obj);
+    </script>
+    <script>
+        (function (window, document) {
+            var loader = function () {
+                var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+                script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+                tag.parentNode.insertBefore(script, tag);
+            };
+    
+            window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+        })(window, document);
+    </script>
 </body>
 
 </html>
