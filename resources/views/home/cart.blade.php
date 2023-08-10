@@ -89,10 +89,6 @@
                             <div class="d-flex justify-content-end">
                                 <div>
                                     @if ($total != 0)
-                                        <button id="sslczPayBtn" token="if you have any token validation" postdata=""
-                                            order="If you already have the transaction generated for current order"
-                                            endpoint="/pay-via-ajax"> Pay Now
-                                        </button>
                                         <a href="{{ route('cash.order') }}" class="btn btn-success">Cash On
                                             Delivery</a>
                                         <a href="{{ route('stripe', $total) }}" class="btn btn-info">Pay Using Card</a>
